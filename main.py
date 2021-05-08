@@ -2,7 +2,7 @@ from lexer import Lexer
 from parserTB import Parser
 
 text_input = """
-print(10  - 5);
+print(10  - 9);
 """
 
 lexer = Lexer().get_lexer()
