@@ -2,7 +2,12 @@ from lexer import Lexer
 from parserTB import Parser
 
 text_input = """
-print(10  - 9);
+Beginning;
+Division@x{
+Ire@decrease() {
+Ire@reg3=5;
+RingWhen (counter<num){
+reg3=reg3-1; } }}End
 """
 
 lexer = Lexer().get_lexer()

@@ -12,9 +12,9 @@
 #         self.right = right
 
 
-class program():
+class Program():
     def eval(self):
-        return program
+        return Program
 
 class ClassDeclaration():
     def eval(self):

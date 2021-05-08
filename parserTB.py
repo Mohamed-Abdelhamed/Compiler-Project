@@ -1,17 +1,17 @@
 from rply import ParserGenerator
-from ast import Number, Sum, Print , Minus ,Multiply,Divide
+from ast import  Program,ClassDeclaration,Class_Implementation,MethodDeclaration,FuncDecl,Type,ParameterList,NonEmptyList,ID_List,Statements,Statement,Assignment,Func_Call,Argument_List,NonEmpty_Argument_List,Block_Statements,WhetherDo_Statement,Condition_Expression,Condition_Op,Condition,Comparison_Op,RingWhen_Statement,BackedValue_Statement,terminatethis_Statement,Expression,Add_Op,Term,Mul_Op,Factor,Comment,using_command,F_name,Print
 
 
 class Parser():
     def __init__(self):
         self.pg = ParserGenerator(
             # A list of all token names accepted by the parser.
-            ['NUMBER', 'PRINT', 'OPEN_PAREN', 'CLOSE_PAREN',
+            [ 'PRINT', 'OPEN_PAREN', 'CLOSE_PAREN',
              'SEMI_COLON', 'SUM','DIFF','DIV','MULTI']
         )
 
     def parse(self):
-        @self.pg.production('program : BEGINNING SEMI_COLON ClassDeclaration SEMI_COLON End Dot')
+        @self.pg.production('Program : BEGINNING SEMI_COLON ClassDeclaration SEMI_COLON End Dot')
         def program(p):
             return p[2]
 
@@ -69,21 +69,21 @@ class Parser():
 
         @self.pg.production('Type : Ire')
         def Type(p):
-            return Number(p[0].value)
+            return p[0]
         @self.pg.production('Type : Sire')
         def Type(p):
-            return Number(p[0].value)
+            return p[0]
         @self.pg.production('Type : Clo')
         def Type(p):
-            return Number(p[0].value)
+            return p[0]
         
         @self.pg.production('ParameterList : empty')
         def ParameterList(p):
-            return Number(p[0].value)
+            return p[0]
         
         @self.pg.production('ParameterList : NoneValue')
         def ParameterList(p):
-            return Number(p[0].value)
+            return p[0]
         
         @self.pg.production('ParameterList : NonEmptyList')
         def ParameterList(p):
@@ -106,7 +106,7 @@ class Parser():
         
         @self.pg.production('VarDeclaration : empty')
         def VarDeclaration(p):
-            return Number(p[0].value)
+            return p[0]
         
         @self.pg.production('ID_List : ID')
         # def ID_List(p):
