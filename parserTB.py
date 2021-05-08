@@ -154,7 +154,7 @@ class Parser():
         def Argument_List(p):
             return p[0]
         @self.pg.production('NonEmpty_Argument_List : Expression')
-        def Argument_List(p):
+        def NonEmpty_Argument_List(p):
             return p[0]
         @self.pg.production('NonEmpty_Argument_List : NonEmpty_Argument_List Comma Expression')
         def NonEmpty_Argument_List(p):
@@ -181,8 +181,8 @@ class Parser():
             return p[1]
             return p[2]
         
-        @self.pg.production('Condition _Op : And')
-        @self.pg.production('Condition _Op : OR')
+        @self.pg.production('Condition_Op : And')
+        @self.pg.production('Condition_Op : OR')
 
         @self.pg.production('Condition : Expression Comparison_Op Condition')
         def Condition(p):
