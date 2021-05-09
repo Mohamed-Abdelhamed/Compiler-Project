@@ -56,6 +56,8 @@ class Lexer():
         self.lexer.add('Delimiter', r'\;')
         self.lexer.add('Identifier', r'[a-zA-Z_]\w*')
         self.lexer.add('ERROR', r'[^z+]')
+        self.lexer.add('Read', r'read')
+        self.lexer.add('Write', r'write')
 
         self.lexer.ignore('\s+')
 

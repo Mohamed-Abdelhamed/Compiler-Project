@@ -1,13 +1,14 @@
 from lexer import Lexer
-#from parserTB import Parser
+from parserTB import Parser
 from tabulate import tabulate
 
 #text_input = """print(10  - 9);"""
 text_input = "/-This is main function \nIre@decrease(){\nIre@3num=5;\nRingWhen (counter<num){\nreg3=reg3-1;} }"
+text = "Beginning; Division@x{ } }}End."
 
 lexer = Lexer().get_lexer()
-tokens = lexer.lex(text_input)
-
+# tokens = lexer.lex(text_input)
+tokens = lexer.lex(text)
 token_names = []
 token_values = []
 token_lineno = []
@@ -64,7 +65,7 @@ print(tabulate(table_data, table_headers, tablefmt="pretty"))
 print('Total # of Errors: ', error_num)
 print('\n')
 
-#pg = Parser()
-#pg.parse()
-#parser = pg.get_parser()
-#parser.parse(tokens).eval()
+pg = Parser()
+pg.parse()
+parser = pg.get_parser()
+parser.parse(tokens).eval()

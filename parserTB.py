@@ -1,5 +1,5 @@
 from rply import ParserGenerator
-from ast import  Program,ClassDeclaration,Class_Implementation,MethodDeclaration,FuncDecl,Type,ParameterList,NonEmptyList,ID_List,Statements,Statement,Assignment,Func_Call,Argument_List,NonEmpty_Argument_List,Block_Statements,WhetherDo_Statement,Condition_Expression,Condition_Op,Condition,Comparison_Op,RingWhen_Statement,BackedValue_Statement,terminatethis_Statement,Expression,Add_Op,Term,Mul_Op,Factor,Comment,using_command,F_name,Print
+# from ast import  Program,ClassDeclaration,Class_Implementation,MethodDeclaration,FuncDecl,Type,ParameterList,NonEmptyList,ID_List,Statements,Statement,Assignment,Func_Call,Argument_List,NonEmpty_Argument_List,Block_Statements,WhetherDo_Statement,Condition_Expression,Condition_Op,Condition,Comparison_Op,RingWhen_Statement,BackedValue_Statement,terminatethis_Statement,Expression,Add_Op,Term,Mul_Op,Factor,Comment,using_command,F_name,Print
 
 
 class Parser():
@@ -24,11 +24,11 @@ class Parser():
         def program(p):
             return p[2]
 
-        @self.pg.production('ClassDeclaration : Class Delimiter ID Opened_Parenthesis Class_Implementation Closed_Parenthesis')
+        @self.pg.production('ClassDeclaration : Class Delimiter Identifier Opened_Parenthesis Class_Implementation Closed_Parenthesis')
         def ClassDeclaration(p):
             return p[4]
 
-        @self.pg.production('ClassDeclaration : Class Delimiter ID Delimiter Inheritance Opened_Parenthesis Class_Implementation Closed_Parenthesis')
+        @self.pg.production('ClassDeclaration : Class Delimiter Identifier Delimiter Inheritance Opened_Parenthesis Class_Implementation Closed_Parenthesis')
         def ClassDeclaration(p):
             return p[6]
 
@@ -53,8 +53,9 @@ class Parser():
             return p[1]
 
 
-        @self.pg.production('Class_Implementation : empty')
-        # def Class_Implementation(p):
+        @self.pg.production('Class_Implementation : Void')
+        def Class_Implementation(p):
+            return p[0]
 
 
         @self.pg.production('MethodDeclaration : FuncDecl Delimiter')
@@ -63,13 +64,12 @@ class Parser():
             
            
         
-        @self.pg.production('MethodDeclaration : FuncDecl Opened_Parenthesis VarDeclaration Statments Closed_Parenthesis')
+        @self.pg.production('MethodDeclaration : FuncDecl Opened_Parenthesis VarDeclaration Statements Closed_Parenthesis')
         def MethodDeclaration(p):
             return p[0]
             
-            
 
-        @self.pg.production('Func Decl : Type Delimiter  Opened_Bracket ParametersList Closed_Bracket')
+        @self.pg.production('FuncDecl : Type Delimiter  Opened_Bracket ParameterList Closed_Bracket')
         def FuncDecl(p):
             return p[0]
             return p[3]
@@ -96,7 +96,7 @@ class Parser():
         @self.pg.production('Type : Void')
         def Type(p):
             return p[0]    
-        @self.pg.production('ParameterList : empty')
+        @self.pg.production('ParameterList : Void')
         def ParameterList(p):
             return p[0]
         
@@ -108,11 +108,11 @@ class Parser():
         def ParameterList(p):
             return p[0]
         
-        @self.pg.production('Non-Empty List : Type Delimiter ID Delimiter')
+        @self.pg.production('NonEmptyList : Type Delimiter Identifier Delimiter')
         def NonEmptyList(p):
             return p[0]
         
-        @self.pg.production('Non-Empty List : NonEmptyList Comma Type Delimiter ID')
+        @self.pg.production('NonEmptyList : NonEmptyList Comma Type Delimiter Identifier')
         def NonEmptyList(p):
             return p[0]
             return p[2]
@@ -123,22 +123,22 @@ class Parser():
             return p[2]
             return p[4]
         
-        @self.pg.production('VarDeclaration : empty')
+        @self.pg.production('VarDeclaration : Void')
         def VarDeclaration(p):
             return p[0]
         
-        @self.pg.production('ID_List : ID')
+        @self.pg.production('ID_List : Identifier')
         def ID_List(p):
             return p[0]
         
-        @self.pg.production('ID_List : ID_List Comma ID')
+        @self.pg.production('ID_List : ID_List Comma Identifier')
         def ID_List(p):
             return p[0]
         
-        @self.pg.production('Statements : empty')
+        @self.pg.production('Statements : Void')
 
-        @self.pg.production('Statements : Statement Statments')
-        def Statments(p):
+        @self.pg.production('Statements : Statement Statements')
+        def Statements(p):
             return p[0]
             return p[1]
 
@@ -157,17 +157,21 @@ class Parser():
         @self.pg.production('Statement : terminatethis_Statement')
         def Statment(p):
             return p[0]
-        @self.pg.production('Statement : read Opened_Bracket ID Closed_Bracket Delimiter')
-        @self.pg.production('Statement : write Opened_Bracket Expression Closed_Bracket Delimiter')
+        # @self.pg.production('Statement : Read Opened_Bracket Identifier Closed_Bracket Delimiter')
+        # def Statment(p):
+        #     return p[2]
+        # @self.pg.production('Statement : Write Opened_Bracket Expression Closed_Bracket Delimiter')
+        # def Statment(p):
+        #     return p[2]
 
         @self.pg.production('Assignment : VarDeclaration Equal Expression Delimiter')
         def Assignment(p):
             return p[0]
             return p[2]
-        @self.pg.production('Func_Call : ID Opened_Bracket Argument_List Closed_Bracket Delimiter')
+        @self.pg.production('Func_Call : Identifier Opened_Bracket Argument_List Closed_Bracket Delimiter')
         def Func_Call(p):
             return p[2]
-        @self.pg.production('Argument_List : empty')
+        @self.pg.production('Argument_List : Void')
         
         @self.pg.production('Argument_List : NonEmpty_Argument_List')
         def Argument_List(p):
@@ -180,11 +184,11 @@ class Parser():
             return p[0]
             return p[2]
         
-        @self.pg.production('Block Statements : Opened_Parenthesis Statements Closed_Parenthesis')
+        @self.pg.production('Block_Statements : Opened_Parenthesis Statements Closed_Parenthesis')
         def Block_Statements(p):
             return p[1]
 
-        @self.pg.production('WhetherDo_Statement : Whether_Do Opened_Bracket Condition_Expression Closed_Bracket Block Statements Else Statement')
+        @self.pg.production('WhetherDo_Statement : Whether_Do Opened_Bracket Condition_Expression Closed_Bracket Block_Statements Else Statement')
         def WhetherDo_Statement(p):
             return p[2]
             return p[5]
@@ -229,7 +233,7 @@ class Parser():
         @self.pg.production('BackedValue_Statement : Return Delimiter Expression Delimiter')
         def BackedValue_Statement(p):
             return p[2]
-        @self.pg.production('BackedValue_Statement : Return Delimiter ID Delimiter')
+        @self.pg.production('BackedValue_Statement : Return Delimiter Identifier Delimiter')
         def BackedValue_Statement(p):
             return p[2]
         @self.pg.production('terminatethis_Statement : Break Delimiter')
@@ -263,7 +267,7 @@ class Parser():
         @self.pg.production('Mul_Op : Div')
         def Mul_Op(p):
             return p[0]
-        @self.pg.production('Factor : ID')
+        @self.pg.production('Factor : Identifier')
         def Factor(p):
             return p[0]
         @self.pg.production('Factor : Number')
@@ -279,7 +283,7 @@ class Parser():
         def Comment(p):
             return p[0]
         
-        @self.pg.production('using_command : Inclusion Opened_Bracket F_name Dot txt Closed_Parenthesis Delimiter')
+        @self.pg.production('using_command : Inclusion Opened_Bracket F_name Dot Identifier Closed_Parenthesis Delimiter')
         def using_command(p):
             return p[2]
         
@@ -288,9 +292,9 @@ class Parser():
             return p[0]
 
 
-        @self.pg.error
-        def error_handle(token):
-            raise ValueError(token)
+        # @self.pg.error
+        # def error_handle(token):
+        #     raise ValueError(token)
 
     def get_parser(self):
         return self.pg.build()
