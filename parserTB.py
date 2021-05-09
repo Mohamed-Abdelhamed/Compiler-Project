@@ -11,15 +11,15 @@ class Parser():
         )
 
     def parse(self):
-        @self.pg.production('Program : BEGINNING SEMI_COLON ClassDeclaration SEMI_COLON End Dot')
+        @self.pg.production('Program : Start_Statement Delimiter ClassDeclaration Delimiter End_Statement Dot')
         def program(p):
             return p[2]
 
-        @self.pg.production('ClassDeclaration : Division At ID OPEN_PAREN Class_Implementation CLOSE_PAREN')
+        @self.pg.production('ClassDeclaration : Class Delimiter ID Opened_Parenthesis Class_Implementation Closed_Parenthesis')
         def ClassDeclaration(p):
             return p[4]
 
-        @self.pg.production('ClassDeclaration : Division At ID AT InferedForm OPEN_PAREN Class_Implementation CLOSE_PAREN')
+        @self.pg.production('ClassDeclaration : Class Delimiter ID Delimiter Inheritance Opened_Parenthesis Class_Implementation Closed_Parenthesis')
         def ClassDeclaration(p):
             return p[6]
 
@@ -48,40 +48,51 @@ class Parser():
         # def Class_Implementation(p):
 
 
-        @self.pg.production('MethodDeclaration : FuncDecl SEMI_COLON')
+        @self.pg.production('MethodDeclaration : FuncDecl Delimiter')
         def MethodDeclaration(p):
             return p[0]
             
            
         
-        @self.pg.production('MethodDeclaration : FuncDecl OPEN_PAREN VarDeclaration Statments CLOSE_PAREN')
+        @self.pg.production('MethodDeclaration : FuncDecl Opened_Parenthesis VarDeclaration Statments Closed_Parenthesis')
         def MethodDeclaration(p):
             return p[0]
             return p[2]
             return p[3]
             
 
-        @self.pg.production('Func Decl : Type AT  OPEN_BRC ParametersList CLOSE_BRC')
+        @self.pg.production('Func Decl : Type Delimiter  Opened_Bracket ParametersList Closed_Bracket')
         def FuncDecl(p):
             return p[0]
             return p[3]
 
 
-        @self.pg.production('Type : Ire')
+        @self.pg.production('Type : Integer')
         def Type(p):
             return p[0]
-        @self.pg.production('Type : Sire')
+        @self.pg.production('Type : SInteger')
         def Type(p):
             return p[0]
-        @self.pg.production('Type : Clo')
+        @self.pg.production('Type : Character')
         def Type(p):
             return p[0]
-        
+        @self.pg.production('Type : String')
+        def Type(p):
+            return p[0]  
+        @self.pg.production('Type : Float')
+        def Type(p):
+            return p[0]  
+        @self.pg.production('Type : SFloat')
+        def Type(p):
+            return p[0] 
+        @self.pg.production('Type : Void')
+        def Type(p):
+            return p[0]    
         @self.pg.production('ParameterList : empty')
         def ParameterList(p):
             return p[0]
         
-        @self.pg.production('ParameterList : NoneValue')
+        @self.pg.production('ParameterList : Void')
         def ParameterList(p):
             return p[0]
         
@@ -89,16 +100,16 @@ class Parser():
         def ParameterList(p):
             return p[0]
         
-        @self.pg.production('Non-Empty List : Type AT ID SEMI_COLON')
+        @self.pg.production('Non-Empty List : Type Delimiter ID Delimiter')
         def NonEmptyList(p):
             return p[0]
         
-        @self.pg.production('Non-Empty List : NonEmptyList Comma Type AT ID')
+        @self.pg.production('Non-Empty List : NonEmptyList Comma Type Delimiter ID')
         def NonEmptyList(p):
             return p[0]
             return p[2]
         
-        @self.pg.production('VarDeclaration : Type AT ID_List SEMI_COLON VarDeclaration')
+        @self.pg.production('VarDeclaration : Type Delimiter ID_List Delimiter VarDeclaration')
         def VarDeclaration(p):
             return p[0]
             return p[2]
@@ -109,8 +120,8 @@ class Parser():
             return p[0]
         
         @self.pg.production('ID_List : ID')
-        # def ID_List(p):
-        #     return Number(p[0].value)
+        def ID_List(p):
+            return p[0]
         
         @self.pg.production('ID_List : ID_List Comma ID')
         def ID_List(p):
@@ -138,14 +149,14 @@ class Parser():
         @self.pg.production('Statement : terminatethis_Statement')
         def Statment(p):
             return p[0]
-        @self.pg.production('Statement : read OPEN_BRC ID CLOSE_BRC SEMI_COLON')
-        @self.pg.production('Statement : write OPEN_BRC Expression CLOSE_BRC SEMI_COLON')
+        @self.pg.production('Statement : read Opened_Bracket ID Closed_Bracket Delimiter')
+        @self.pg.production('Statement : write Opened_Bracket Expression Closed_Bracket Delimiter')
 
-        @self.pg.production('Assignment : VarDeclaration Equals Expression SEMI_COLON')
+        @self.pg.production('Assignment : VarDeclaration Equal Expression Delimiter')
         def Assignment(p):
             return p[0]
             return p[2]
-        @self.pg.production('Func_Call : ID OPEN_BRC Argument_List CLOSE_BRC SEMI_COLON')
+        @self.pg.production('Func_Call : ID Opened_Bracket Argument_List Closed_Bracket Delimiter')
         def Func_Call(p):
             return p[2]
         @self.pg.production('Argument_List : empty')
@@ -161,11 +172,11 @@ class Parser():
             return p[0]
             return p[2]
         
-        @self.pg.production('Block Statements : OPEN_PAREN Statements CLOSE_PAREN')
+        @self.pg.production('Block Statements : Opened_Parenthesis Statements Closed_Parenthesis')
         def Block_Statements(p):
             return p[1]
 
-        @self.pg.production('WhetherDo_Statement : WhetherDo OPEN_BRC Condition_Expression CLOSE_BRC Block Statements Else Statement')
+        @self.pg.production('WhetherDo_Statement : Whether_Do Opened_Bracket Condition_Expression Closed_Bracket Block Statements Else Statement')
         def WhetherDo_Statement(p):
             return p[2]
             return p[5]
@@ -182,56 +193,66 @@ class Parser():
             return p[2]
         
         @self.pg.production('Condition_Op : And')
-        @self.pg.production('Condition_Op : OR')
+        def Condition_Op(p):
+            return p[0]
+        @self.pg.production('Condition_Op : Or')
+        def Condition_Op(p):
+            return p[0]
 
         @self.pg.production('Condition : Expression Comparison_Op Condition')
         def Condition(p):
-            return p[1]
+            return p[0]
             return p[1]
             return p[2]
-        @self.pg.production('Comparison_Op : ')
-        # def Comparison_Op(p):
+        @self.pg.production('Comparison_Op : Identical')
+        @self.pg.production('Comparison_Op : Less-than')
+        @self.pg.production('Comparison_Op : Greater-than')
+        @self.pg.production('Comparison_Op : NotEqual')
+        @self.pg.production('Comparison_Op : Less-thanOrEqual')
+        @self.pg.production('Comparison_Op : Greater-thanOrEqual')
+        def Comparison_Op(p):
+            return p[0]
 
-        @self.pg.production('RingWhen_Statement : RingWhen OPEN_BRC Condition_Expression CLOSE_BRC Block_Statements')
+        @self.pg.production('RingWhen_Statement : Loop Opened_Bracket Condition_Expression Closed_Bracket Block_Statements')
         def RingWhen_Statement(p):
             return p[2]
             return p[4]
         
-        @self.pg.production('BackedValue_Statement : BackedValue At Expression SEMI_COLON')
+        @self.pg.production('BackedValue_Statement : Return Delimiter Expression Delimiter')
         def BackedValue_Statement(p):
             return p[2]
-        @self.pg.production('BackedValue_Statement : BackedValue At ID SEMI_COLON')
+        @self.pg.production('BackedValue_Statement : Return Delimiter ID Delimiter')
         def BackedValue_Statement(p):
             return p[2]
-        @self.pg.production('terminatethis_Statement : TerminateThisNow SEMI_COLON')
-        # def terminatethis_Statement(p):
-        #     return p[2]
+        @self.pg.production('terminatethis_Statement : Break Delimiter')
+        def terminatethis_Statement(p):
+            return p[0]
         @self.pg.production('Expression : Term')
         def Expression(p):
             return p[0]
-        @self.pg.production('Expression : Expression AT Add_Op AT Factor')
+        @self.pg.production('Expression : Expression Delimiter Add_Op Delimiter Factor')
         def Expression(p):
             return p[0]
             return p[2]
             return p[4]
-        @self.pg.production('Add_Op : SUM')
+        @self.pg.production('Add_Op : Plus')
         def Add_Op(p):
             return p[0]
-        @self.pg.production('Add_Op : DIFF')
+        @self.pg.production('Add_Op : Minus')
         def Add_Op(p):
             return p[0]
         @self.pg.production('Term : Factor')
         def Term(p):
             return p[0]
-        @self.pg.production('Term : Expression AT Mul_Op AT Factor')
+        @self.pg.production('Term : Expression Delimiter Mul_Op Delimiter Factor')
         def Term(p):
             return p[0]
             return p[2]
             return p[4]
-        @self.pg.production('Mul_Op : MULTI')
+        @self.pg.production('Mul_Op : Mult')
         def Mul_Op(p):
             return p[0]
-        @self.pg.production('Mul_Op : DIV')
+        @self.pg.production('Mul_Op : Div')
         def Mul_Op(p):
             return p[0]
         @self.pg.production('Factor : ID')
@@ -241,11 +262,15 @@ class Parser():
         def Factor(p):
             return p[0]
         
-        @self.pg.production('Comment : ')
-        # def Factor(p):
-        #     return p[0]
+        @self.pg.production('Comment : Comment_Block_Start STR Comment_Block_End')
+        def Comment(p):
+            return p[0]
+            return p[2]
+        @self.pg.production('Comment : Comment_Line STR')
+        def Comment(p):
+            return p[0]
         
-        @self.pg.production('using_command : using OPEN_BRC F_name Dot txt')
+        @self.pg.production('using_command : Inclusion Opened_Bracket F_name Dot txt Closed_Parenthesis Delimiter')
         def using_command(p):
             return p[2]
         
