@@ -6,12 +6,21 @@ class Parser():
     def __init__(self):
         self.pg = ParserGenerator(
             # A list of all token names accepted by the parser.
-            [ 'PRINT', 'OPEN_PAREN', 'CLOSE_PAREN',
-             'SEMI_COLON', 'SUM','DIFF','DIV','MULTI']
+            [ 'Class','Inheritance','Whether_Do','Else','Integer','SInteger','Character','String',
+            'Float','SFloat','Void','Break','Loop','Return','Struct','Check','Case_Of','Start_Statement',
+            'End_Statement','Comment_Line','Comment_Block_Start','Comment_Block_End','Plus','Minus','Mult',
+            'Div','And','Or','Not','Identical','Less-than','Greater-than','NotEqual','Less-thanOrEqual','Greater-thanOrEqual',
+            'Equal','Dot','Opened_Parenthesis','Closed_Parenthesis','Opened_Bracket','Closed_Bracket','ERROR','Number','Comma',
+            'Inclusion','Delimiter','Identifier','ERROR'
+            ]
         )
 
     def parse(self):
         @self.pg.production('Program : Start_Statement Delimiter ClassDeclaration Delimiter End_Statement Dot')
+        def program(p):
+            return p[2]
+
+        @self.pg.production('Program : Comment Delimiter using_command')
         def program(p):
             return p[2]
 
@@ -57,8 +66,7 @@ class Parser():
         @self.pg.production('MethodDeclaration : FuncDecl Opened_Parenthesis VarDeclaration Statments Closed_Parenthesis')
         def MethodDeclaration(p):
             return p[0]
-            return p[2]
-            return p[3]
+            
             
 
         @self.pg.production('Func Decl : Type Delimiter  Opened_Bracket ParametersList Closed_Bracket')
@@ -262,11 +270,12 @@ class Parser():
         def Factor(p):
             return p[0]
         
-        @self.pg.production('Comment : Comment_Block_Start STR Comment_Block_End')
+        @self.pg.production('Comment : Comment_Block_Start Identifier Comment_Block_End')
         def Comment(p):
-            return p[0]
-            return p[2]
-        @self.pg.production('Comment : Comment_Line STR')
+            return 0
+            # return p[0]
+            # return p[2]
+        @self.pg.production('Comment : Comment_Line Identifier')
         def Comment(p):
             return p[0]
         
@@ -274,7 +283,7 @@ class Parser():
         def using_command(p):
             return p[2]
         
-        @self.pg.production('F_name : STR')
+        @self.pg.production('F_name : Identifier')
         def F_name(p):
             return p[0]
 
