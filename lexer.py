@@ -6,34 +6,57 @@ class Lexer():
         self.lexer = LexerGenerator()
 
     def _add_tokens(self):
-        # Print
-        self.lexer.add('PRINT', r'print')
-        self.lexer.add('AND', r'and')
-        self.lexer.add('OR', r'or')
-        self.lexer.add('RingWhen',r'RingWhen')
-        # Parenthesis
-        self.lexer.add('OPEN_PAREN', r'\{')
-        self.lexer.add('CLOSE_PAREN', r'\}')
-        #Brackets
-        self.lexer.add('OPEN_BRC', r'\(')
-        self.lexer.add('CLOSE_BRC', r'\)')
-        # Semi Colon
-        self.lexer.add('SEMI_COLON', r'\;')
-        #Dot
+        # Custom
+        self.lexer.add('Class', r'Division')
+        self.lexer.add('Inheritance', r'InferedFrom')
+        self.lexer.add('Whether Do', r'WhetherDo')
+        self.lexer.add('Else', r'Else')
+        self.lexer.add('Integer', r'Ire')
+        self.lexer.add('SInteger', r'Sire')
+        self.lexer.add('Character', r'Clo')
+        self.lexer.add('String', r'SetOfClo')
+        self.lexer.add('Float', r'FBU')
+        self.lexer.add('SFloat', r'SFBU')
+        self.lexer.add('Void', r'NoneValue')
+        self.lexer.add('Break', r'TerminateThisNow')
+        self.lexer.add('Loop', r'RingWhen')
+        self.lexer.add('Return', r'BackedValue')
+        self.lexer.add('Struct', r'STT')
+        self.lexer.add('Check', r'Check')
+        self.lexer.add('Case Of', r'CaseOf')
+        self.lexer.add('Start Statement', r'Beginning')
+        self.lexer.add('End Statement', r'End')
+        self.lexer.add('Comment Line', r'\/\-')
+        self.lexer.add('Comment Block Start', r'\/\#')
+        self.lexer.add('Comment Block End', r'\#\/')
+        self.lexer.add('Plus', r'\+')
+        self.lexer.add('Minus',r'\-')
+        self.lexer.add('Mult',r'\*')
+        self.lexer.add('Div',r'\/')
+        self.lexer.add('And', r'\&\&')
+        self.lexer.add('Or', r'\|\|')
+        self.lexer.add('Not',r'\~')
+        self.lexer.add('Identical', r'\=\=')
+        self.lexer.add('Less-than', r'\<')
+        self.lexer.add('Greater-than', r'\>')
+        self.lexer.add('Not Equal', r'\!\=')
+        self.lexer.add('Less-than or Equal', r'\<\=')
+        self.lexer.add('Greater-than or Equal', r'\>\=')
+        self.lexer.add('Equal', r'\=')
         self.lexer.add('Dot', r'\.')
-        #Comma
+        self.lexer.add('Opened Parenthesis', r'\{')
+        self.lexer.add('Closed Parenthesis', r'\}')
+        self.lexer.add('Opened Bracket', r'\(')
+        self.lexer.add('Closed Bracket', r'\)')
+        self.lexer.add('ERROR', r'\d\w+')
+        self.lexer.add('Number', r'\d+')
         self.lexer.add('Comma', r'\,')
-        self.lexer.add('Equals', r'\=')
-        #@
-        self.lexer.add('At', r'\@')
-        # # Operators
-        self.lexer.add('SUM', r'\+')
-        self.lexer.add('DIFF',r'\-')
-        self.lexer.add('DIV',r'\/')
-        self.lexer.add('MULTI',r'\*')
-        # Number
-        self.lexer.add('NUMBER', r'\d+')
-        # Ignore spaces
+        self.lexer.add('Inclusion', r'Using')
+        self.lexer.add('Delimiter', r'\@')
+        self.lexer.add('Delimiter', r'\;')
+        self.lexer.add('Identifier', r'[a-zA-Z_]\w*')
+        self.lexer.add('ERROR', r'[^z+]')
+
         self.lexer.ignore('\s+')
 
     def get_lexer(self):
