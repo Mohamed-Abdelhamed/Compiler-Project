@@ -2,17 +2,24 @@ from lexer import Lexer
 from parserTB import Parser
 from tabulate import tabulate
 
-#text_input = "/-This is main function \nIre@decrease(){\nIre@3num=5;\nRingWhen (counter<num){\nreg3=reg3-1;} }"
-text = "Beginning;Division@x{Ire@xy;};End."
+#scanner_text_input = "/-This is main function \nIre@decrease(){\nIre@3num=5;\nRingWhen (counter<num){\nreg3=reg3-1;} }"
+#parser_text_input = "Beginning;Division@x{Ire@xy;};End."
 
-with open('text.txt','r') as file:
-    text_input = file.read()
-print(text_input)
+with open('scanner_text_input.txt', 'r') as file:
+    scanner_text_input = file.read()
+print('\n')
+print(scanner_text_input)
+
+with open('parser_text_input.txt', 'r') as file:
+    parser_text_input = file.read()
+print('\n')
+print(parser_text_input)
 
 lexer = Lexer().get_lexer()
-tokens = lexer.lex(text_input)
-Parsertokens = lexer.lex(text)
+tokens = lexer.lex(scanner_text_input)
+Parsertokens = lexer.lex(parser_text_input)
 
+print('\n')
 pg = Parser()
 pg.parse()
 parser = pg.get_parser()
