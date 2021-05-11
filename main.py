@@ -2,8 +2,7 @@ from lexer import Lexer
 from parserTB import Parser
 from tabulate import tabulate
 
-#text_input = """print(10  - 9);"""
-text_input = "/-This is main function \nIre@decrease(){\nIre@3num=5;\nRingWhen (counter<num){\nreg3=reg3-1;} }"
+#text_input = "/-This is main function \nIre@decrease(){\nIre@3num=5;\nRingWhen (counter<num){\nreg3=reg3-1;} }"
 text = "Beginning;Division@x{Ire@xy;};End."
 
 lexer = Lexer().get_lexer()
