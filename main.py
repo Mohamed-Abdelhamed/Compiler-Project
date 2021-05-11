@@ -5,16 +5,18 @@ from tabulate import tabulate
 #text_input = "/-This is main function \nIre@decrease(){\nIre@3num=5;\nRingWhen (counter<num){\nreg3=reg3-1;} }"
 text = "Beginning;Division@x{Ire@xy;};End."
 
+with open('text.txt','r') as file:
+    text_input = file.read()
+print(text_input)
+
 lexer = Lexer().get_lexer()
 tokens = lexer.lex(text_input)
 Parsertokens = lexer.lex(text)
-
 
 pg = Parser()
 pg.parse()
 parser = pg.get_parser()
 parser.parse(Parsertokens)
-
 
 token_names = []
 token_values = []
@@ -32,10 +34,10 @@ for token in tokens:
     lexpos = str(token.source_pos)
     strpos = lexpos.split("lineno=", 1)[1]
     lineno = strpos.split(", ")[0]  
-    if (token.name == "Comment Line"):
+    if (token.name == "Comment_Line"):
         iscommented = 1
         commentedlineno = lineno
-    if (token.name == "Comment Block Start"):
+    if (token.name == "Comment_Block_Start"):
         iscommented = 1
         commentedblock = 1
     if (lineno != commentedlineno and commentedblock == 0):
@@ -60,7 +62,7 @@ for token in tokens:
         lex_no.append(counter)
         #print('')
         oldlineno = lineno
-    if (token.name == "Comment Block End"):
+    if (token.name == "Comment_Block_End"):
         iscommented = 0
         commentedblock = 0
 
@@ -71,4 +73,3 @@ print('\n')
 print(tabulate(table_data, table_headers, tablefmt="pretty"))
 print('Total # of Errors: ', error_num)
 print('\n')
-
